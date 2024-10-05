@@ -2,20 +2,19 @@ import path from 'node:path';
 import { release, version } from 'node:os';
 import { createServer as createServerHttp } from 'node:http';
 import './files/c.js';
-import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 
 const random = Math.random();
+const req = createRequire(import.meta.url);
 
 let unknownObject;
 
-const aJson = JSON.parse(
-  await readFile(new URL('./files/a.json', import.meta.url))
-);
-const bJson = JSON.parse(
-  await readFile(new URL('./files/b.json', import.meta.url))
-);
-unknownObject = random > 0.5 ? aJson : bJson;
+if (random > 0.5) {
+  unknownObject = req('./files/a.json');
+} else {
+  unknownObject = req('./files/b.json');
+}
 
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
