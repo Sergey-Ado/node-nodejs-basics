@@ -17,7 +17,7 @@ const performCalculations = async () => {
       })
     );
   }
-  Promise.all(workers).then((res) => console.log(res));
+  await Promise.all(workers).then(console.log);
 };
 
 await performCalculations();

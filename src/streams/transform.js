@@ -1,4 +1,3 @@
-import { stdin, stdout } from 'node:process';
 import { Transform } from 'node:stream';
 import { EOL } from 'node:os';
 
@@ -13,7 +12,7 @@ const transform = async () => {
   });
   console.log('Enter text');
   console.log('To complete your entry, press Ctrl+C');
-  stdin.pipe(reverseText).pipe(stdout);
+  process.stdin.pipe(reverseText).pipe(process.stdout);
 };
 
 await transform();

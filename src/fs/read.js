@@ -1,14 +1,13 @@
-import * as fs from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { access, readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import path from 'node:path';
 
 const read = async () => {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const fileName = path.resolve(__dirname, 'files', 'fileToRead.txt');
-  await fs.access(fileName).then(
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const fileName = resolve(__dirname, 'files', 'fileToRead.txt');
+  await access(fileName).then(
     async () => {
-      const content = await fs.readFile(fileName, { encoding: 'utf-8' });
+      const content = await readFile(fileName, { encoding: 'utf-8' });
       console.log(content);
     },
     () => {

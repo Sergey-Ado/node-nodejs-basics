@@ -1,16 +1,13 @@
-import * as fs from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { access, readdir } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-import { access } from 'node:fs';
 
 const list = async () => {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const dir = path.resolve(__dirname, 'files');
-  await fs
-    .access(dir)
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const dir = resolve(__dirname, 'files');
+  await access(dir)
     .then(async () => {
-      const files = await fs.readdir(dir);
+      const files = await readdir(dir);
       console.log(files);
     })
     .catch(() => {

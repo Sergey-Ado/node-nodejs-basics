@@ -1,7 +1,5 @@
-import { argv } from 'node:process';
-
 const parseArgs = () => {
-  const list = argv.slice(2);
+  const list = process.argv.slice(2);
   const res = [];
   for (let i = 0; i < list.length; i++) {
     if (list[i].indexOf('--') == 0)
