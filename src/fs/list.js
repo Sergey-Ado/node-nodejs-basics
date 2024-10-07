@@ -7,8 +7,12 @@ const list = async () => {
   const dir = resolve(__dirname, 'files');
   await access(dir)
     .then(async () => {
-      const files = await readdir(dir);
-      console.log(files);
+      const files = await readdir(dir, { withFileTypes: true });
+      const listFiles = [];
+      files.forEach((s) => {
+        if (s.isFile()) listFiles.push(s.name);
+      });
+      console.log(listFiles);
     })
     .catch(() => {
       throw new Error('FS operation failed');
